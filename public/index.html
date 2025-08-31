@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAURMS - Dashboard</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <h1 class="header__title">VAURMS</h1>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="index.html" class="nav__link nav__link--active">Dashboard</a></li>
+                    <li class="nav__item"><a href="upload.html" class="nav__link">Upload</a></li>
+                    <li class="nav__item"><a href="analytics.html" class="nav__link">Analytics</a></li>
+                    <li class="nav__item"><a href="forecast.html" class="nav__link">Forecast</a></li>
+                    <li class="nav__item"><a href="rates.html" class="nav__link">Rates</a></li>
+                    <li class="nav__item"><a href="admin.html" class="nav__link">Admin</a></li>
+                </ul>
+            </nav>
+            <div class="user-menu">
+                <span class="user-menu__name" id="userName">Loading...</span>
+                <button class="btn btn--secondary" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="dashboard">
+                <h2 class="dashboard__title">Dashboard Overview</h2>
+                
+                <!-- KPI Cards -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <h3 class="kpi-card__title">Total Revenue</h3>
+                        <div class="kpi-card__value" id="totalRevenue">$0</div>
+                        <div class="kpi-card__change kpi-card__change--positive" id="revenueChange">+0%</div>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <h3 class="kpi-card__title">Collection Rate</h3>
+                        <div class="kpi-card__value" id="collectionRate">0%</div>
+                        <div class="kpi-card__change kpi-card__change--positive" id="collectionChange">+0%</div>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <h3 class="kpi-card__title">Customer Count</h3>
+                        <div class="kpi-card__value" id="customerCount">0</div>
+                        <div class="kpi-card__change kpi-card__change--positive" id="customerChange">+0%</div>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <h3 class="kpi-card__title">Coverage Ratio</h3>
+                        <div class="kpi-card__value" id="coverageRatio">0.0</div>
+                        <div class="kpi-card__change kpi-card__change--neutral" id="coverageChange">0%</div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <h3 class="chart-container__title">Revenue Trends</h3>
+                        <canvas id="revenueChart" width="400" height="200"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3 class="chart-container__title">Consumption by Class</h3>
+                        <canvas id="consumptionChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3 class="quick-actions__title">Quick Actions</h3>
+                    <div class="quick-actions__grid">
+                        <a href="upload.html" class="quick-action-card">
+                            <div class="quick-action-card__icon">📁</div>
+                            <h4 class="quick-action-card__title">Upload Data</h4>
+                            <p class="quick-action-card__description">Import new billing data</p>
+                        </a>
+                        
+                        <a href="forecast.html" class="quick-action-card">
+                            <div class="quick-action-card__icon">📊</div>
+                            <h4 class="quick-action-card__title">Run Forecast</h4>
+                            <p class="quick-action-card__description">Generate financial projections</p>
+                        </a>
+                        
+                        <a href="rates.html" class="quick-action-card">
+                            <div class="quick-action-card__icon">💰</div>
+                            <h4 class="quick-action-card__title">Optimize Rates</h4>
+                            <p class="quick-action-card__description">Model rate structures</p>
+                        </a>
+                        
+                        <a href="analytics.html" class="quick-action-card">
+                            <div class="quick-action-card__icon">📈</div>
+                            <h4 class="quick-action-card__title">View Analytics</h4>
+                            <p class="quick-action-card__description">Detailed performance metrics</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3 class="recent-activity__title">Recent Activity</h3>
+                    <div class="activity-list" id="activityList">
+                        <div class="activity-item">
+                            <div class="activity-item__icon">📊</div>
+                            <div class="activity-item__content">
+                                <div class="activity-item__title">Forecast completed</div>
+                                <div class="activity-item__time">2 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-item__icon">📁</div>
+                            <div class="activity-item__content">
+                                <div class="activity-item__title">Data uploaded</div>
+                                <div class="activity-item__time">1 day ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/charts/kpisChart.js"></script>
+</body>
+</html> 

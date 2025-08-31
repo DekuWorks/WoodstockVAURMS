@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAURMS - Login</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: var(--spacing-4);
+        }
+        
+        .login-container {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            padding: var(--spacing-8);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .login-logo {
+            font-size: var(--font-size-4xl);
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .login-subtitle {
+            color: var(--color-gray-600);
+            font-size: var(--font-size-lg);
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-6);
+        }
+        
+        .form__input {
+            padding: var(--spacing-4);
+            font-size: var(--font-size-base);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: var(--spacing-4);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+        }
+        
+        .login-footer {
+            text-align: center;
+            margin-top: var(--spacing-6);
+            color: var(--color-gray-500);
+            font-size: var(--font-size-sm);
+        }
+        
+        .demo-credentials {
+            background-color: var(--color-gray-50);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-4);
+            margin-top: var(--spacing-6);
+        }
+        
+        .demo-credentials__title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-2);
+            color: var(--color-gray-700);
+        }
+        
+        .demo-credentials__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: var(--font-size-sm);
+        }
+        
+        .demo-credentials__item {
+            margin-bottom: var(--spacing-1);
+        }
+        
+        .demo-credentials__label {
+            font-weight: 500;
+            color: var(--color-gray-600);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="login-logo">VAURMS</div>
+                <div class="login-subtitle">Utility Analytics & Rate Management System</div>
+            </div>
+            
+            <form class="login-form" id="loginForm">
+                <div class="form__group">
+                    <label for="email" class="form__label">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form__input" 
+                        required
+                        autocomplete="email"
+                        placeholder="Enter your email"
+                    >
+                </div>
+                
+                <div class="form__group">
+                    <label for="password" class="form__label">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form__input" 
+                        required
+                        autocomplete="current-password"
+                        placeholder="Enter your password"
+                    >
+                </div>
+                
+                <div class="form__group">
+                    <label class="form__label">
+                        <input type="checkbox" id="remember" name="remember">
+                        Remember me
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn--primary login-btn" id="loginBtn">
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="demo-credentials">
+                <div class="demo-credentials__title">Demo Credentials</div>
+                <ul class="demo-credentials__list">
+                    <li class="demo-credentials__item">
+                        <span class="demo-credentials__label">Admin:</span> admin@vaurms.com / admin123
+                    </li>
+                    <li class="demo-credentials__item">
+                        <span class="demo-credentials__label">Analyst:</span> analyst@vaurms.com / analyst123
+                    </li>
+                    <li class="demo-credentials__item">
+                        <span class="demo-credentials__label">Viewer:</span> viewer@vaurms.com / viewer123
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="login-footer">
+                <p>Need help? Contact your system administrator</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/auth/login.js"></script>
+</body>
+</html> 

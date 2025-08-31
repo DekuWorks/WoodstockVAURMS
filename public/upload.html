@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAURMS - Upload Data</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .upload-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--color-gray-300);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-12);
+            text-align: center;
+            background-color: var(--color-gray-50);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+        
+        .upload-area.dragover {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+        
+        .upload-icon {
+            font-size: var(--font-size-4xl);
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .upload-text {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .upload-hint {
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-500);
+        }
+        
+        .file-list {
+            margin-top: var(--spacing-8);
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-4);
+            background-color: var(--color-white);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-3);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+        }
+        
+        .file-icon {
+            font-size: var(--font-size-xl);
+        }
+        
+        .file-details h4 {
+            margin: 0;
+            font-size: var(--font-size-base);
+        }
+        
+        .file-details p {
+            margin: 0;
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-500);
+        }
+        
+        .file-status {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+        
+        .progress-bar {
+            width: 100px;
+            height: 8px;
+            background-color: var(--color-gray-200);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--color-primary);
+            transition: width var(--transition-fast);
+        }
+        
+        .upload-form {
+            margin-top: var(--spacing-6);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-4);
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <h1 class="header__title">VAURMS</h1>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="index.html" class="nav__link">Dashboard</a></li>
+                    <li class="nav__item"><a href="upload.html" class="nav__link nav__link--active">Upload</a></li>
+                    <li class="nav__item"><a href="analytics.html" class="nav__link">Analytics</a></li>
+                    <li class="nav__item"><a href="forecast.html" class="nav__link">Forecast</a></li>
+                    <li class="nav__item"><a href="rates.html" class="nav__link">Rates</a></li>
+                    <li class="nav__item"><a href="admin.html" class="nav__link">Admin</a></li>
+                </ul>
+            </nav>
+            <div class="user-menu">
+                <span class="user-menu__name" id="userName">Loading...</span>
+                <button class="btn btn--secondary" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="upload-container">
+                <h2>Upload Data</h2>
+                <p>Upload CSV or Excel files containing billing data for analysis.</p>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">Drag and drop files here or click to browse</div>
+                    <div class="upload-hint">Supports CSV, XLSX, and XLS files up to 100MB</div>
+                    <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" multiple style="display: none;">
+                </div>
+                
+                <div class="upload-form" id="uploadForm" style="display: none;">
+                    <h3>File Details</h3>
+                    <div class="form-row">
+                        <div class="form__group">
+                            <label for="datasetName" class="form__label">Dataset Name</label>
+                            <input type="text" id="datasetName" class="form__input" placeholder="Enter dataset name">
+                        </div>
+                        <div class="form__group">
+                            <label for="datasetDescription" class="form__label">Description</label>
+                            <input type="text" id="datasetDescription" class="form__input" placeholder="Optional description">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn--primary" id="uploadBtn">Upload Dataset</button>
+                </div>
+                
+                <div class="file-list" id="fileList"></div>
+                
+                <div class="card" style="margin-top: var(--spacing-8);">
+                    <div class="card__header">
+                        <h3 class="card__title">Upload Guidelines</h3>
+                    </div>
+                    <div class="card__body">
+                        <h4>Required Columns</h4>
+                        <ul>
+                            <li><strong>account_id</strong> - Unique customer identifier</li>
+                            <li><strong>bill_period</strong> - Billing period (e.g., "2024-01", "FY2024")</li>
+                            <li><strong>customer_class</strong> - Customer type (residential, commercial, industrial)</li>
+                            <li><strong>consumption</strong> - Usage amount (gallons, kWh, etc.)</li>
+                            <li><strong>amount</strong> - Bill amount in dollars</li>
+                            <li><strong>paid_flag</strong> - Payment status (true/false, 1/0, yes/no)</li>
+                        </ul>
+                        
+                        <h4>File Requirements</h4>
+                        <ul>
+                            <li>Maximum file size: 100MB</li>
+                            <li>Supported formats: CSV, XLSX, XLS</li>
+                            <li>First row should contain column headers</li>
+                            <li>Data should be clean and consistent</li>
+                        </ul>
+                        
+                        <h4>Processing</h4>
+                        <p>After upload, files will be validated and processed. You'll receive notifications about any issues found during validation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/features/upload/index.js"></script>
+</body>
+</html> 
