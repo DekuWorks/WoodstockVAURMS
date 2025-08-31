@@ -33,6 +33,9 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     limiter.init_app(app)
     
+    # Import models to register them with SQLAlchemy
+    from models import User, Dataset, Bill, Forecast, Assumption, RateStructure, Audit
+    
     # Enable CORS
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     
